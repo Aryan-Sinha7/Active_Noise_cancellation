@@ -92,9 +92,9 @@ def removeNoise(audio_clip, noise_clip, n_grad_freq=3, n_grad_time=5,
     recovered_signal = _istft(sig_stft_amp, hop_length, win_length)
     return recovered_signal
 
-# Example Usage
+
 if __name__ == "__main__":
-    # === Load Audio ===
+    #Load Audio
     wav_loc = r"C:\Users\Aryan\Downloads\Noise-Reduction-master\Noise-Reduction-master\Audiofile.wav"
     rate, data = wavfile.read(wav_loc)
 
@@ -106,23 +106,23 @@ if __name__ == "__main__":
     data = data.astype(float)
     data = data / np.max(np.abs(data))
 
-    # === Create Artificial Noise for Demo ===
+
     noise_len = 2  # seconds
     noise = band_limited_noise(4000, 12000, samples=len(data), samplerate=rate) * 10
     noise_clip = noise[: rate * noise_len]
     noisy_signal = data + noise
 
-    # === Perform Noise Reduction ===
+    #Perform Noise Reduction
     clean = removeNoise(noisy_signal, noise_clip)
 
-    # === Post Filter (Low-Pass) ===
+    # Post Filter (Low-Pass)
     clean = lowpass_filter(clean, cutoff=14000, fs=rate)
 
-    # === Save High-Quality Output ===
+    # High-Quality Output
     sf.write("output_clean.wav", clean, rate, subtype='FLOAT')
     print("High-quality noise reduction complete → saved as output_clean.wav")
 
-    # ===== Plot Waveforms =====
+    # Waveforms
     plt.figure(figsize=(14,6))
     plt.subplot(2,1,1)
     librosa.display.waveshow(noisy_signal, sr=rate, color='red')
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     plt.tight_layout()
     plt.show()
 
-    # ===== Plot Spectrograms =====
+    # Spectrograms
     plt.figure(figsize=(14,6))
     plt.subplot(2,1,1)
     D_noisy = librosa.amplitude_to_db(np.abs(librosa.stft(noisy_signal)), ref=np.max)
@@ -149,4 +149,3 @@ if __name__ == "__main__":
     plt.title("Output Cleaned Audio Spectrogram")
     plt.tight_layout()
     plt.show()
-what type of sound i use to show its working properly
