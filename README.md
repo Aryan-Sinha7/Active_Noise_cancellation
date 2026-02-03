@@ -151,12 +151,6 @@ This simulates real-world background noise conditions.
 Aryan Kr Sinha  
 Electronics and Communication Engineering  
 
----
-
-## License
-
-This project is licensed under the MIT License.  
-You are free to use, modify, and distribute this software.
 
 
 
